@@ -1,27 +1,16 @@
 "use client";
 import Link from "next/link";
 import Styles from "./form.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 
 export default function Modify() {
   const router = useRouter()
   const ISSERVER = typeof window === "undefined";
-  const [nextQuestionTime, setNextQuestionTime] = useState(
-    !ISSERVER ? (localStorage.getItem("nextQuestionTime") || '') : ""
-  );
-
-  const [answerViewTime, setAnswerViewTime] = useState(
-    !ISSERVER ? (localStorage.getItem("answerViewTime") || '') : ""
-  );
-
-  const [title, setTitle] = useState(
-    !ISSERVER ? (localStorage.getItem("title") || '') : ""
-  );
-
-  const [list, setList] = useState(
-    !ISSERVER ? (localStorage.getItem("list") || '') : ""
-  );
+  const [nextQuestionTime, setNextQuestionTime] = useState('');
+  const [answerViewTime, setAnswerViewTime] = useState('');
+  const [title, setTitle] = useState('');
+  const [list, setList] = useState('');
 
   const listOnChange = (e) => {
     setList(e.currentTarget.value);
@@ -37,6 +26,13 @@ export default function Modify() {
       router.push("/guess-the-word");
     }
   };
+
+  useEffect(()=>{
+    setNextQuestionTime(!ISSERVER ? (localStorage.getItem("nextQuestionTime") || '') : "");
+    setAnswerViewTime(!ISSERVER ? (localStorage.getItem("answerViewTime") || '') : "");
+    setTitle(!ISSERVER ? (localStorage.getItem("title") || '') : "");
+    setList(!ISSERVER ? (localStorage.getItem("list") || '') : "");
+  },[])
 
   return (
     <main className={Styles.form}>

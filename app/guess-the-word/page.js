@@ -9,6 +9,7 @@ export default function GuessTheCountry() {
   const [addClass, setAddClass] = useState(false);
   const [result, setResult] = useState(false);
   const [arr, setArr] = useState([]);
+  const [title, setTitle] = useState('Guess the Word');
   const barRef = useRef();
   const ISSERVER = typeof window === "undefined";
 
@@ -53,7 +54,10 @@ export default function GuessTheCountry() {
     }
     if (!localStorage.getItem("title")) {
       localStorage.setItem("title", data.title);
+    }else{
+      setTitle(localStorage.getItem("title"))
     }
+
     if (!localStorage.getItem("list")) {
       localStorage.setItem("list", data.list);
     }else{
@@ -117,7 +121,7 @@ export default function GuessTheCountry() {
       </svg>
       <span className={Styles.count}>{count + 1}</span>
       <div className={Styles.container}>
-        <div className={Styles.title}>{`${localStorage.getItem('title') || 'Guess the Word'}`}</div>
+        <div className={Styles.title}>{ title }</div>
         <ul className={`${result && Styles.result} ${Styles.cards}`}>
           {data.list[count].trim().split("").map((i, index) => (
             <li
