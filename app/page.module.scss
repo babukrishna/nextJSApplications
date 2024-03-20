@@ -1,0 +1,16 @@
+.home{
+    padding: 40px;
+
+    .title{
+        padding: 20px 0;
+    }
+    .navItem{
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    sub{
+        padding-left: 20px;
+    }
+}

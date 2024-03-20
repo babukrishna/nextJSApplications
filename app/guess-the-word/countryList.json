@@ -1,0 +1,10 @@
+{
+  "nextQuestionTime": "5",
+  "answerViewTime": "2",
+  "title":"Guess the Country",
+  "list": [
+    "Albania",
+    "Algeria",
+    "Andorra"
+  ]
+}
