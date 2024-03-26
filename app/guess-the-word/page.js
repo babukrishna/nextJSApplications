@@ -9,8 +9,12 @@ export default function GuessTheCountry() {
   const [addClass, setAddClass] = useState(false);
   const [result, setResult] = useState(false);
   const [arr, setArr] = useState([]);
-  const [title, setTitle] = useState('Guess the Word');
+  const [wordPlayerSound, setWordPlayerSound] = useState("");
+  const [title, setTitle] = useState("Guess the Word");
   const barRef = useRef();
+  const clockPlayerRef = useRef();
+  const donePlayerRef = useRef();
+  const wordPlayerRef = useRef();
   const ISSERVER = typeof window === "undefined";
 
   const generateUniqueRandomNumbers = (min, max, count) => {
@@ -28,7 +32,7 @@ export default function GuessTheCountry() {
     const charLength = data.list[count].length - 1;
     let tempArr = new Array();
 
-    if (charLength < 4) {
+    if (charLength < 4 || charLength < 3) {
       tempArr = generateUniqueRandomNumbers(0, charLength, 1);
     } else if (charLength < 6) {
       tempArr = generateUniqueRandomNumbers(0, charLength, 2);
@@ -44,40 +48,52 @@ export default function GuessTheCountry() {
   useEffect(() => {
     let gap = 5;
     const listLength = data.list.length;
-
     cardGenerator(count);
-    if (!localStorage.getItem("nextQuestionTime")) {
-      localStorage.setItem("nextQuestionTime", data.nextQuestionTime);
+
+    if (!sessionStorage.getItem("nextQuestionTime")) {
+      sessionStorage.setItem("nextQuestionTime", data.nextQuestionTime);
     }
-    if (!localStorage.getItem("answerViewTime")) {
-      localStorage.setItem("answerViewTime", data.answerViewTime);
+    if (!sessionStorage.getItem("answerViewTime")) {
+      sessionStorage.setItem("answerViewTime", data.answerViewTime);
     }
-    if (!localStorage.getItem("title")) {
-      localStorage.setItem("title", data.title);
-    }else{
-      setTitle(localStorage.getItem("title"))
+    if (!sessionStorage.getItem("title")) {
+      sessionStorage.setItem("title", data.title);
+    } else {
+      setTitle(sessionStorage.getItem("title"));
     }
 
-    if (!localStorage.getItem("list")) {
-      localStorage.setItem("list", data.list);
-    }else{
-      data.list = !ISSERVER ? localStorage.getItem("list").split(',') : data.list;
+    if (!sessionStorage.getItem("list")) {
+      sessionStorage.setItem("list", data.list);
+    } else {
+      data.list = !ISSERVER
+        ? sessionStorage.getItem("list").split(",")
+        : data.list;
     }
-
-    console.log(data.list);
-
+    
     const interval = setInterval(() => {
       if (barRef.current.clientWidth !== 0) {
         setAddClass(true);
+
+        if(clockPlayerRef.current.paused){
+          clockPlayerRef.current.play();
+        }
       } else {
         setResult(true);
+        
+        if(donePlayerRef.current.paused){
+          donePlayerRef.current.load();
+          donePlayerRef.current.play();
+          clockPlayerRef.current.pause();
+          wordPlayerRef.current.play();
+        }
+        
         gap -= 1;
 
         if (gap === 0) {
           setAddClass(false);
           setResult(false);
           setCount((prev) => {
-            if (prev === listLength - 1 && barRef.current.clientWidth === 0) {
+            if ((prev === listLength - 1) && (barRef.current.clientWidth === 0)) {
               clearInterval(interval);
               setAddClass(true);
               setResult(true);
@@ -87,13 +103,20 @@ export default function GuessTheCountry() {
             }
           });
           cardGenerator(count);
-          gap = Number(localStorage.getItem("answerViewTime"));
+          gap = Number(sessionStorage.getItem("answerViewTime"));
         }
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const soundFile = `/sound/words/${data.list[count]}.mp3`;
+    console.log(soundFile);
+    setWordPlayerSound(soundFile);
+    wordPlayerRef.current.load();
+  },[count])
 
   return (
     <main className={Styles.wordQuiz}>
@@ -121,19 +144,22 @@ export default function GuessTheCountry() {
       </svg>
       <span className={Styles.count}>{count + 1}</span>
       <div className={Styles.container}>
-        <div className={Styles.title}>{ title }</div>
+        <div className={Styles.title}>{title}</div>
         <ul className={`${result && Styles.result} ${Styles.cards}`}>
-          {data.list[count].trim().split("").map((i, index) => (
-            <li
-              key={index}
-              className={(
-                (String(arr).includes(index) && Styles.off) ||
-                (arr.length === 0 && Styles.off)
-              ).toString()}
-            >
-              {i}
-            </li>
-          ))}
+          {data.list[count]
+            .trim()
+            .split("")
+            .map((i, index) => (
+              <li
+                key={index}
+                className={(
+                  (String(arr).includes(index) && Styles.off) ||
+                  (arr.length === 0 && Styles.off)
+                ).toString()}
+              >
+                {i}
+              </li>
+            ))}
         </ul>
         <div className={Styles.footer}>
           <div className={Styles.level}> </div>
@@ -144,15 +170,26 @@ export default function GuessTheCountry() {
               style={{
                 transitionDuration:
                   `${
-                    addClass ? localStorage.getItem("nextQuestionTime") : 0
+                    addClass ? sessionStorage.getItem("nextQuestionTime") : 0
                   }s` || String(`${addClass ? data.nextQuestionTime : 0}s`),
               }}
             ></div>
           </div>
           <div className={Styles.logo}>
-            <Link href="/guess-the-word/modify">Edit</Link>
+            <Link href="/guess-the-word/modify">E</Link>
+            <button
+              onClick={() => {
+                clockPlayerRef.current.play();
+                donePlayerRef.current.play();
+              }}
+            >
+              P
+            </button>
           </div>
         </div>
+        <audio src="/sound/tic-tac.mp3" loop autoPlay ref={clockPlayerRef}></audio>
+        <audio src="/sound/glockenspiel.mp3" ref={donePlayerRef}></audio>
+        <audio src={wordPlayerSound} ref={wordPlayerRef}></audio>
       </div>
     </main>
   );

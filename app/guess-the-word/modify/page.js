@@ -19,19 +19,19 @@ export default function Modify() {
   const onSubmitClick = (e) => {
     e.preventDefault();
     if (!ISSERVER) {
-      localStorage.setItem("nextQuestionTime", nextQuestionTime);
-      localStorage.setItem("answerViewTime", answerViewTime);
-      localStorage.setItem("title", title);
-      localStorage.setItem("list", list);
+      sessionStorage.setItem("nextQuestionTime", nextQuestionTime);
+      sessionStorage.setItem("answerViewTime", answerViewTime);
+      sessionStorage.setItem("title", title);
+      sessionStorage.setItem("list", list);
       router.push("/guess-the-word");
     }
   };
 
   useEffect(()=>{
-    setNextQuestionTime(!ISSERVER ? (localStorage.getItem("nextQuestionTime") || '') : "");
-    setAnswerViewTime(!ISSERVER ? (localStorage.getItem("answerViewTime") || '') : "");
-    setTitle(!ISSERVER ? (localStorage.getItem("title") || '') : "");
-    setList(!ISSERVER ? (localStorage.getItem("list") || '') : "");
+    setNextQuestionTime(!ISSERVER ? (sessionStorage.getItem("nextQuestionTime") || '') : "");
+    setAnswerViewTime(!ISSERVER ? (sessionStorage.getItem("answerViewTime") || '') : "");
+    setTitle(!ISSERVER ? (sessionStorage.getItem("title") || '') : "");
+    setList(!ISSERVER ? (sessionStorage.getItem("list") || '') : "");
   },[])
 
   return (
