@@ -50,7 +50,7 @@ export default function GuessTheCountry() {
     const listLength = data.list.length;
     cardGenerator(count);
 
-    if (!sessionStorage.getItem("nextQuestionTime")) {
+    /* if (!sessionStorage.getItem("nextQuestionTime")) {
       sessionStorage.setItem("nextQuestionTime", data.nextQuestionTime);
     }
     if (!sessionStorage.getItem("answerViewTime")) {
@@ -60,7 +60,7 @@ export default function GuessTheCountry() {
       sessionStorage.setItem("title", data.title);
     } else {
       setTitle(sessionStorage.getItem("title"));
-    }
+    } */
 
     if (!sessionStorage.getItem("list")) {
       sessionStorage.setItem("list", data.list);
@@ -69,7 +69,7 @@ export default function GuessTheCountry() {
         ? sessionStorage.getItem("list").split(",")
         : data.list;
     }
-    
+    setTitle(data.title);
     const interval = setInterval(() => {
       if (barRef.current.clientWidth !== 0) {
         setAddClass(true);
@@ -103,7 +103,7 @@ export default function GuessTheCountry() {
             }
           });
           cardGenerator(count);
-          gap = Number(sessionStorage.getItem("answerViewTime"));
+          gap = data.answerViewTime;
         }
       }
     }, 1000);
@@ -113,7 +113,6 @@ export default function GuessTheCountry() {
 
   useEffect(() => {
     const soundFile = `/sound/words/${data.list[count]}.mp3`;
-    console.log(soundFile);
     setWordPlayerSound(soundFile);
     wordPlayerRef.current.load();
   },[count])
@@ -167,16 +166,11 @@ export default function GuessTheCountry() {
             <div
               ref={barRef}
               className={`${Styles.bars} ${addClass ? Styles.done : ""}`}
-              style={{
-                transitionDuration:
-                  `${
-                    addClass ? sessionStorage.getItem("nextQuestionTime") : 0
-                  }s` || String(`${addClass ? data.nextQuestionTime : 0}s`),
-              }}
+              style={{transitionDuration:`${addClass ? data.nextQuestionTime : 0}s`}}
             ></div>
           </div>
           <div className={Styles.logo}>
-            <Link href="/guess-the-word/modify">E</Link>
+            {/* <Link href="/guess-the-word/modify">E</Link>
             <button
               onClick={() => {
                 clockPlayerRef.current.play();
@@ -184,7 +178,7 @@ export default function GuessTheCountry() {
               }}
             >
               P
-            </button>
+            </button> */}
           </div>
         </div>
         <audio src="/sound/tic-tac.mp3" loop autoPlay ref={clockPlayerRef}></audio>
