@@ -14,6 +14,14 @@ export default function Home() {
             Guess the word in the given time
           </sub>
         </div>
+        <div>
+          <Link href={"/guess-the-image"} className="btn primary">
+            Guess image - Game
+          </Link>
+          <sub>
+            Guess the image in the given time
+          </sub>
+        </div>
       </nav>
     </main>
   );

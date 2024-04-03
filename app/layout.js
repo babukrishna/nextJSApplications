@@ -1,4 +1,5 @@
 import "./globals.css";
+import "animate.css";
 
 export const metadata = {
   title: "Let's Play the game",

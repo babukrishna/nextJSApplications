@@ -1,0 +1,27 @@
+{
+  "nextQuestionTime": "5",
+  "answerViewTime": "4",
+  "title": "Guess the Word",
+  "list": [
+    "Cat", 
+    "Dog", 
+    "Hat", 
+    "Pig", 
+    "Sun", 
+    "Bus", 
+    "Cup", 
+    "Box", 
+    "Bed", 
+    "Pen", 
+    "Car", 
+    "Ant", 
+    "Bug", 
+    "Toy", 
+    "Bat", 
+    "Egg", 
+    "Fan", 
+    "Key", 
+    "Fox", 
+    "Cow"
+  ]
+}

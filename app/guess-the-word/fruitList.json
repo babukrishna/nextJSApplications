@@ -1,0 +1,27 @@
+{
+  "nextQuestionTime": "5",
+  "answerViewTime": "4",
+  "title": "Guess the Fruit",
+  "list": [
+    "Apple",
+    "Apricot",
+    "Avocado",
+    "Banana",
+    "Blackberry",
+    "Blueberry",
+    "Cantaloupe",
+    "Cherry",
+    "Clementine",
+    "Coconut",
+    "Cranberry",
+    "cucumber",
+    "Date",
+    "Dragonfruit",
+    "Durian",
+    "Elderberry",
+    "Feijoa",
+    "Fig",
+    "Grape",
+    "Grapefruit"
+  ]
+}
