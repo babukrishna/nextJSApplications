@@ -1,0 +1,22 @@
+.layout {
+  width: 1920px;
+  height: 1080px;
+  border: 1px solid #ccc;
+  background-size: cover;
+  background-color: #fee440;
+  position: relative;
+  overflow: hidden;
+
+  .info{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+  }
+}
