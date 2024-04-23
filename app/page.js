@@ -22,6 +22,14 @@ export default function Home() {
             Guess the image in the given time
           </sub>
         </div>
+        <div>
+          <Link href={"/option-questions"} className="btn primary">
+            Objective / Option - Game
+          </Link>
+          <sub>
+            Option Questions
+          </sub>
+        </div>
       </nav>
     </main>
   );
