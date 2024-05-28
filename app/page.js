@@ -30,6 +30,14 @@ export default function Home() {
             Option Questions
           </sub>
         </div>
+        <div>
+          <Link href={"/youtube-tag-generator"} className="btn primary">
+            Youtube Tag Generator
+          </Link>
+          <sub>
+            Generate youtube tag
+          </sub>
+        </div>
       </nav>
     </main>
   );

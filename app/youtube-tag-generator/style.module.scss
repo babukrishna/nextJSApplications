@@ -1,0 +1,65 @@
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title button {
+  padding: 5px 10px;
+}
+.tagContainer {
+  display: flex;
+  overflow: hidden;
+  padding: 5px 10px;
+  border: 1px grey solid;
+  flex-wrap: wrap;
+}
+
+.tagContainer .tag {
+  display: flex;
+  align-items: center;
+  margin: 7px 0;
+  margin-right: 10px;
+  padding: 0 10px;
+  padding-right: 5px;
+  border: 1px solid orange;
+  border-radius: 5px;
+  background-color: orange;
+  white-space: nowrap;
+  color: white;
+  cursor: pointer;
+}
+
+.tagContainer .tag.selected {
+  background-color: purple;
+}
+
+.tagContainer .tag span {
+  display: flex;
+  padding: 6px;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+  color: white;
+}
+
+.tagContainer .tag button {
+  display: flex;
+  padding: 6px;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+  color: white;
+}
+
+.tagLength {
+  margin-top: -15px;
+  margin-bottom: 5px;
+  display: block;
+}
